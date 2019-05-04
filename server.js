@@ -14,6 +14,15 @@ app.use(bodyParser.json())
 
 //start nodejs and react servers using npm run dev
 
+if (process.env.NODE_ENV === 'production') {
+    // Serve any static files
+    app.use(express.static(path.join(__dirname, 'client/build')));
+  // Handle React routing, return all requests to React app
+    app.get('*', function(req, res) {
+      res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    });
+  }
+
 app.get("/", function(req, res){
     res.sendFile('client/public' + "index.html");
 })
