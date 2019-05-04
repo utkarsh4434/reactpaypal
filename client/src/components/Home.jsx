@@ -3,14 +3,41 @@ import '../App.css';
 
 class Home extends React.Component {
 
+    constructor(props) {
+        super(props);
+        
+        this.state = {
+            amount: 0
+        };
+        this.update = this.update.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    update(e) {
+        console.log("this works")
+        this.setState({
+            amount: e.currentTarget.value
+        })
+        console.log(e.currentTarget.value);
+    }
+
     handleClick(event) {
         event.preventDefault()
-        fetch('/buy') 
+        fetch('/buy', {
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify({price: this.state.amount})
+        }) 
         .then(function(res) {
-          console.log(res)
-          window.location=res.url;
+            console.log(res)
+            window.location=res.url;
         })
-        .catch(error => console.log(error) );
+        .catch(error =>
+            console.log(error)
+        );
       }
 
     render() {
@@ -30,33 +57,33 @@ class Home extends React.Component {
                                 <p className="card-text">A donation of $25.00 or greater can go a long way in helping us achieve our mission.</p>
                                 <div className="btn-group" data-toggle="buttons">
                                     <label className="btn btn-warning">
-                                        <input type="radio" name="options" id="option1" /> $25.00
+                                        <input type="radio" name="options" id="option1" value="25.00" onChange={this.update}/> $25.00
                                     </label>
                                     &nbsp;
                                     <label className="btn btn-warning">
-                                        <input type="radio" name="options" id="option2" /> $50.00
+                                        <input type="radio" name="options" id="option2" value="50.00" onChange={this.update}/> $50.00
                                     </label>
                                     &nbsp;
                                     <label className="btn btn-warning">
-                                        <input type="radio" name="options" id="option3" /> $100.00
+                                        <input type="radio" name="options" id="option3" value="100.00" onChange={this.update}/> $100.00
                                     </label>
                                     &nbsp;
                                     <label className="btn btn-warning">
-                                        <input type="radio" name="options" id="option2" /> $200.00
+                                        <input type="radio" name="options" id="option2" value="200.00" onChange={this.update}/> $200.00
                                     </label>
                                     &nbsp;
                                     <label className="btn btn-warning">
-                                        <input type="radio" name="options" id="option3" /> $400.00
+                                        <input type="radio" name="options" id="option3" value="400.00" onChange={this.update}/> $400.00
                                     </label>
                                 </div>
                                 <br />
-                                <label>
-                                    Custom Amount:&nbsp;&nbsp;$<input type="number" placeholder="0.00"/>
+                                {/* <label>
+                                    Custom Amount:&nbsp;&nbsp;$<input type="number" placeholder="0.00" value="" onChange={this.update}/>
                                 </label>
-                                <br />
+                                <br /> */}
                             </div>
                             <div className="card-footer text-muted">
-                                <button className="btn btn-primary" onclick={this.handleClick}>Donate</button>
+                                <button className="btn btn-primary" onClick={this.handleClick}>Donate via PayPal</button>
                             </div>
                         </div>
                         <br /><br /><br /><br /><br /><br />

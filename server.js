@@ -4,6 +4,13 @@ const port = 5000
 let paypal = require('paypal-rest-sdk');
 let ID = process.env.ID;
 let secret = process.env.secret;
+var bodyParser = require('body-parser')
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
 
 //start nodejs and react servers using npm run dev
 
@@ -11,9 +18,9 @@ app.get("/", function(req, res){
     res.sendFile('client/public' + "index.html");
 })
 
-app.get('/buy' , ( req , res ) => {
+app.post('/buy', ( req , res ) => {
         
-    // var ammount = req.body.price;
+    console.log(req.body.price);
 
     paypal.configure({
         'mode': 'sandbox',
@@ -35,14 +42,14 @@ app.get('/buy' , ( req , res ) => {
                 "items": [{
                     "name": "item",
                     "sku": "item",
-                    "price": "1.00",
+                    "price": req.body.price,
                     "currency": "USD",
                     "quantity": 1
                 }]
             },
             "amount": {
                 "currency": "USD",
-                "total": "1.00"
+                "total": req.body.price
             },
             "description": "This is the payment description."
         }]

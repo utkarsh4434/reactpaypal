@@ -6,7 +6,10 @@ class Success extends React.Component {
     render() {
       return (
         <div className="container">
-success
+          <div class="alert alert-success" role="alert">
+            Success!
+          </div>
+            <h1>Thank you for your donation.</h1>
         </div>
       );
     } 
