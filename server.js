@@ -27,8 +27,8 @@ app.get('/buy' , ( req , res ) => {
             "payment_method": "paypal"
         },
         "redirect_urls": {
-            "return_url": "/success",
-            "cancel_url": "/err"
+            "return_url": "http://localhost:3000/success",
+            "cancel_url": "http://localhost:3000/err"
         },
         "transactions": [{
             "item_list": {
