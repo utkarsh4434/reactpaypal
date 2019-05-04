@@ -44,8 +44,8 @@ app.post('/buy', ( req , res ) => {
             "payment_method": "paypal"
         },
         "redirect_urls": {
-            "return_url": "http://localhost:3000/success",
-            "cancel_url": "http://localhost:3000/err"
+            "return_url": "https://intense-oasis-14523.herokuapp.com/success",
+            "cancel_url": "https://intense-oasis-14523.herokuapp.com/err"
         },
         "transactions": [{
             "item_list": {
@@ -79,15 +79,5 @@ app.post('/buy', ( req , res ) => {
         }
     });
 });
-
-app.get('/success' , (req ,res ) => {
-    console.log(req.query); 
-    res.send('success'); 
-})
-
-app.get('/err' , (req , res) => {
-    console.log(req.query); 
-    res.send('error'); 
-})
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
