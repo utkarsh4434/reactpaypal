@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 5000
+const port = process.env.PORT || 5000
 let paypal = require('paypal-rest-sdk');
 let ID = process.env.ID;
 let secret = process.env.secret;
